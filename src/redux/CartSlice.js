@@ -24,10 +24,15 @@ const cartSlice = createSlice({
 
             if (item) {
                 item.count -= 1;
+
+                if (item.count < 1) {
+                    const index = state.findIndex(item => item.id === action.payload);
+
+                    if (index !== -1) {
+                        state.splice(index, 1);
+                    }
+                }
             }
-        },
-        removeItem: (state, action) => {
-            return state.filter(item => item.id !== action.payload);
         },
         addItem: (state, action) => {
             const title = action.payload;
@@ -35,20 +40,7 @@ const cartSlice = createSlice({
                 state.push({ id: nextId++, title: title, count: 1 });
             }
         }
-    },
-    extraReducers: (builder) => {
-        builder.addMatcher(
-            (action) => action.type === 'cart/decrementCount',
-            (state, action) => {
-                const itemId = action.payload;
-                const item = state.find(item => item.id === itemId);
-
-                if (item && item.count < 1) {
-                    return state.filter(item => item.id !== itemId);
-                }
-            }
-        )
-    },
+    }
 })
 
 export const { increment, decrement, addItem } = cartSlice.actions;
