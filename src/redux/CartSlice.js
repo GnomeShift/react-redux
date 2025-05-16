@@ -7,8 +7,6 @@ const initialState = [
     { id: 4, title: 'Ракетки', count: 1 }
 ]
 
-let nextId = initialState.length + 1;
-
 const cartSlice = createSlice({
     name: 'cart', initialState,
     reducers: {
@@ -35,7 +33,9 @@ const cartSlice = createSlice({
             }
         },
         addItem: (state, action) => {
+            let nextId = initialState.length + 1;
             const title = action.payload;
+
             if (title) {
                 state.push({ id: nextId++, title: title, count: 1 });
             }
@@ -44,5 +44,4 @@ const cartSlice = createSlice({
 })
 
 export const { increment, decrement, addItem } = cartSlice.actions;
-
 export default cartSlice.reducer;

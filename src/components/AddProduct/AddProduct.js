@@ -7,6 +7,7 @@ function AddProduct() {
 
     const addProduct = () => {
         const title = prompt("Введите название товара:");
+
         if (title) {
             dispatch(addItem(title));
         }

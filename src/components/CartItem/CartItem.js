@@ -5,6 +5,7 @@ import './CartItem.css'
 
 function CartItem({ item }) {
     const dispatch = useDispatch();
+
     return (
         <div className="CartItem">
             <h4> {item.title} </h4>
